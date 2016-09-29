@@ -11,7 +11,7 @@ export default function reducer(state = initialState, action = {} ) {
       return { ...state, currentUser: action.currentUser, errro: null };
 
     case Constants.SESSIONS_ERROR:
-      return { ..state, error: action.error };
+      return { ...state, error: action.error };
 
     case Constants.USER_SIGNED_OUT:
       return initialState;
