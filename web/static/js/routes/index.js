@@ -6,7 +6,7 @@ import HomeIndexView          from '../views/home';
 import RegistrationsNew       from '../views/registrations/new';
 import SessionsNew            from '../views/sessions/new';
 import BoardsShowView         from '../views/boards/show';
-import CardsshowView          from '../views/cards/show';
+// import CardsShowView          from '../views/cards/show';
 
 export default (
   <Route component={MainLayout}>
@@ -17,7 +17,7 @@ export default (
       <IndexRoute component={HomeIndexView} />
 
       <Route path="/boards/:id" component={BoardsShowView}>
-        <Route path="/cards/:id" component={CardsshowView} />
+        {/*<Route path="/cards/:id" component={CardsShowView} />*/}
       </Route>
     </Route>
   </Route>

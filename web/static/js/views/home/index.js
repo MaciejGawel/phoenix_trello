@@ -4,7 +4,7 @@ import classnames           from 'classnames';
 
 import { setDocumentTitle } from '../../utils';
 import Actions              from '../../actions/boards';
-import BoardCard            from '../../components/boards/card';
+// import BoardCard            from '../../components/boards/card';
 import BoardForm            from '../../components/boards/form';
 
 class HomeIndexView extends React.Component {
@@ -48,7 +48,7 @@ class HomeIndexView extends React.Component {
 
   _renderBoards(boards) {
     return boards.map((boards) => {
-      return <BoardCard key={board.id} dispatch={this.props.dispatch} {...board} />;
+      // return <BoardCard key={board.id} dispatch={this.props.dispatch} {...board} />;
     });
   }
 
