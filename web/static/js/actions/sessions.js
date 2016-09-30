@@ -4,11 +4,6 @@ import { Socket }                         from 'phoenix';
 import { httpGet, httpPost, httpDelete }  from '../utils';
 
 export function setCurrentUser(dispatch, user) {
-  dispatch({
-    type: Constants.CURRENT_USER,
-    currentUser: user
-  });
-
   const socket = new Socket('/socket', {
     params: { token: localStorage.getItem('phoenixAuthToken') }
   });
@@ -26,7 +21,8 @@ export function setCurrentUser(dispatch, user) {
 
   channel.join().receive('ok', () => {
     dispatch({
-      type: Constants.SOCKET_CONNECTED,
+      type: Constants.CURRENT_USER,
+      currentUser: user,
       socket: socket,
       channel: channel
     });
