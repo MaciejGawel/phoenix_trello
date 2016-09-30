@@ -16,6 +16,12 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.CURRENT_BOARD_CONNECTED_TO_CHANNEL:
       return { ...state, channel: action.channel };
 
+    case Constants.CURRENT_BOARD_MEMBER_ADDED:
+      const { members } = state;
+      members.push(action.user);
+
+      return { ...state, members: members, showUsersForm: false };
+
     default:
       return state;
   }
