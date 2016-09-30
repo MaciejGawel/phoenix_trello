@@ -21,6 +21,13 @@ const Actions = {
         });
       });
 
+      channel.on('user:lefft', (msg) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_CONNECTED_USERS,
+          users: msg.users
+        });
+      });
+
       channel.join().receive('ok', (response) => {
         dipatch({
           type: Constants.BOARDS_SET_CURRENT_BOARD,
@@ -32,6 +39,12 @@ const Actions = {
           channel: channel
         });
       });
+    };
+  },
+
+  leaveChannel: (channel) => {
+    return dispatch => {
+      channel.leave();
     };
   },
 
