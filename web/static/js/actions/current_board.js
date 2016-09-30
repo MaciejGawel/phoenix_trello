@@ -28,6 +28,20 @@ const Actions = {
         });
       });
 
+      channel.on('list:created', (msg) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_LIST_CREATED,
+          list: msg.list
+        });
+      });
+
+      channel.on('card:created', (msg) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_CARD_CREATED,
+          card: msg.card
+        });
+      });
+
       channel.join().receive('ok', (response) => {
         dipatch({
           type: Constants.BOARDS_SET_CURRENT_BOARD,

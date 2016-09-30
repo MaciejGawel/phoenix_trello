@@ -1,7 +1,13 @@
 import Constants from '../constants';
 
 const initialState = {
+  connectedUsers: [],
   chanel: null,
+  showForm: false,
+  showUsersForm: false,
+  editingListId: null,
+  addingNewCardInListId: null,
+  error: null,
   fetching: true
 };
 
@@ -21,6 +27,22 @@ export default function reducer(state = initialState, action = {}) {
       members.push(action.user);
 
       return { ...state, members: members, showUsersForm: false };
+
+    case Constants.CURRENT_BOARD_LIST_CREATED:
+      const lists = [...state.lists];
+
+      lists.push(action.list);
+
+      return { ...state, lists: lists, showForm: false}
+
+    case Constants.CURRENT_BOARD_CARD_CREATED:
+      lists = [..state.lists];
+      const { card } = action;
+
+      const listIndex = lists.findIndex((list) => { return list.id == card.list_id; });
+      lists[listIndex].cards.push(card);
+
+      return { ...state, lists: lists };
 
     default:
       return state;
