@@ -17,7 +17,7 @@ const Actions = {
       channel.on('user:joined', (msg) => {
         dispatch({
           type: Constants.CURRENT_BOARD_CONNECTED_USERS,
-          users: msg: users
+          users: msg.users
         });
       });
 
