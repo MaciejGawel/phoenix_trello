@@ -11,7 +11,8 @@ defmodule PhoenixTrello.Board do
 
     has_many :user_boards, PhoenixTrello.UserBoard
     has_many :members, through: [:user_boards, :user]
-
+    has_many :lists
+    
     timestamps()
   end
 
