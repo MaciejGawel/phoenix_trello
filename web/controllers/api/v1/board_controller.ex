@@ -23,15 +23,21 @@ defmodule PhoenixTrello.BoardController do
       |> build_assoc(:owned_boards)
       |> Board.changeset(board_params)
 
-    case Repo.insert(changeset) do
-      {:ok, board} ->
-        conn
+    if changeset.valid? do
+      board = Repo.insert!(changeset)
+
+      board
+      |> build_assoc(:user_boards)
+      |> UserBoard.changeset(%{user_id: current_user.id})
+      |> Repo.insert!
+
+      conn
         |> put_status(:created)
         |> render("show.json", board: board)
-      {:error, changeset} ->
-        conn
-        |> put_status(:unprocessable_entity)
-        |> render("error.json", changeset: changeset)
+    else
+      conn
+      |> put_status(:unprocessable_entity)
+      |> render("error.json", changeset: changeset)
     end
   end
 end
