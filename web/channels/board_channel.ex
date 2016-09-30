@@ -1,14 +1,14 @@
 defmodule PhoenixTrello.BoardChannel do
   use PhoenixTrello.Web, :channel
 
-  alias PhoenixTrello.{User, UserBoard}
+  alias PhoenixTrello.{User, UserBoard, Board, List, Card}
   alias PhoenixTrello.BoardChannel.Monitor
 
   def join("boards:" <> board_id, _params, socket) do
     current_user = socket.assigns.current_user
     board = get_current_board(socket, board_id)
 
-    connected_users = Monitor.user_joined(board_id, current_user.id)
+    connected_users = Monitor.member_joined(board_id, current_user.id)
 
     send(self, {:after_join, connected_users})
 
@@ -47,9 +47,9 @@ defmodule PhoenixTrello.BoardChannel do
   end
 
   def handle_in("lists:create", %{"list" => list_params}, socket) do
-    board = socket.assigns.Board
+    board = socket.assigns.board
 
-    changeset = Board
+    changeset = board
       |> build_assoc(:lists)
       |> List.changeset(list_params)
 
@@ -67,6 +67,7 @@ defmodule PhoenixTrello.BoardChannel do
 
   def handle_in("cards:create", %{"card" => card_params}, socket) do
     board = socket.assigns.board
+    
     changeset = board
       |> assoc(:lists)
       |> Repo.get!(card_params["list_id"])
@@ -87,7 +88,7 @@ defmodule PhoenixTrello.BoardChannel do
     board_id = Board.slug_id(socket.assigns.board)
     user_id = socket.assigns.current_user.id
 
-    broadcast! socket, "user:left", %{users: Monitor.user_left(board_id, user_id)}
+    broadcast! socket, "user:left", %{users: Monitor.member_left(board_id, user_id)}
 
     :ok
   end
