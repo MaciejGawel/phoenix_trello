@@ -33,6 +33,12 @@ export default function reducer(state = initialState, action = {}) {
 
       return { ...state, invitedBoards: [action.board].concat(invitedBoards) }
 
+    case Constants.BOARDS_RESET:
+      return { ...state, showForm: false, formErrors: null, ownedFetched: false, fetching: false, };
+
+    case Constants.BOARDS_FULL_RESET:
+      return initialState;
+
     default:
       return state;
   }

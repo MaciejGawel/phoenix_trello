@@ -20,7 +20,7 @@ defmodule PhoenixTrello.BoardChannel.Monitor do
   # Server callbacks
 
   def handle_call({:member_joined, board, member}, _from, state) do
-    state = case Map.get(state, board) do
+    case Map.get(state, board) do
       nil ->
         state = state
         |> Map.put(board, [member])

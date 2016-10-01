@@ -18,6 +18,22 @@ export default class CardForm extends React.Component {
     this.props.onSubmit();
   }
 
+  _renderErrors(field) {
+    const { errors } = this.props;
+
+    if (!errors) return false;
+
+    return errors.map((error, i) => {
+      if (error[field]) {
+        return (
+          <div key={i} className="error">
+            {error[field]}
+          </div>
+        );
+      }
+    });
+  }
+
   componentDidMount() {
     this.refs.name.focus();
   }
@@ -33,7 +49,8 @@ export default class CardForm extends React.Component {
       <PageClick onClick={::this._handleCancelClick}>
         <div className="card form">
           <form id="new_card_form" onSubmit={::this._handleSubmit}>
-            <textarea ref="name" id="card_name" type="text" required="true" rows={5} />
+            <textarea ref="name" id="card_name" type="text" required="true" rows={5}/>
+            {::this._renderErrors('name')}
             <button type="submit">Add</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
           </form>
         </div>
@@ -41,3 +58,6 @@ export default class CardForm extends React.Component {
     );
   }
 }
+
+CardForm.propTypes = {
+};

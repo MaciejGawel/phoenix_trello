@@ -16,3 +16,6 @@ export default class BoardCard extends React.Component {
     );
   }
 }
+
+BoardCard.propTypes = {
+};

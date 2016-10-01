@@ -1,6 +1,15 @@
 import Constants from '../constants';
 
 const Actions = {
+  showForm: (show) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_BOARD_SHOW_FORM,
+        show: show,
+      });
+    };
+  },
+
   connectToChannel: (socket, boardID) => {
     return dispatch => {
       const channel = socket.channel(`boards:${boardId}`);
@@ -59,6 +68,10 @@ const Actions = {
   leaveChannel: (channel) => {
     return dispatch => {
       channel.leave();
+
+      dispatch({
+        type: Constants.CURRENT_BOARD_RESET,
+      });
     };
   },
 
@@ -79,6 +92,16 @@ const Actions = {
           type: Constants.CURRENT_BOARD_ADD_MEMBER_ERROR,
           error: data.error
         });
+      });
+    };
+  },
+
+
+  showCardForm: (listId) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_BOARD_SHOW_CARD_FORM_FOR_LIST,
+        listId: listId,
       });
     };
   }

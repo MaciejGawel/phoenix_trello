@@ -82,6 +82,8 @@ Actions.signOut = () => {
       });
 
       dispatch(push('/sign_in'));
+
+      dispatch({ type: Constants.BOARDS_FULL_RESET });
     })
     .catch(function(error) {
       console.log(error);

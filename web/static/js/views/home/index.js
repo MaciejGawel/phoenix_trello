@@ -25,7 +25,7 @@ class HomeIndexView extends React.Component {
       fa: true,
       'fa-user': !fetching,
       'fa-spinner': fetching,
-      'fa-spin': fetching
+      'fa-spin':    fetching,
     });
 
     if (!fetching) {
@@ -48,8 +48,11 @@ class HomeIndexView extends React.Component {
   }
 
   _renderBoards(boards) {
-    return boards.map((boards) => {
-      return <BoardCard key={board.id} dispatch={this.props.dispatch} {...board} />;
+    return boards.map((board) => {
+      return <BoardCard
+                key={board.id}
+                dispatch={this.props.dispatch}
+                {...board} />;
     });
   }
 
@@ -67,21 +70,21 @@ class HomeIndexView extends React.Component {
   }
 
   _renderOtherBoards() {
-   const { invitedBoards } = this.props;
+    const { invitedBoards } = this.props;
 
-   if (invitedBoards.length === 0) return false;
+    if (invitedBoards.length === 0) return false;
 
-   return (
-     <section>
-       <header className="view-header">
-         <h3><i className="fa fa-users" /> Other boards</h3>
-       </header>
-       <div className="boards-wrapper">
-         {::this._renderBoards(invitedBoards)}
-       </div>
-     </section>
-   );
- }
+    return (
+      <section>
+        <header className="view-header">
+          <h3><i className="fa fa-users" /> Other boards</h3>
+        </header>
+        <div className="boards-wrapper">
+          {::this._renderBoards(invitedBoards)}
+        </div>
+      </section>
+    );
+  }
 
   _renderAddButton() {
     return (

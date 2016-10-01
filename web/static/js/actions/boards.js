@@ -1,5 +1,5 @@
 import Constants              from '../constants';
-import { routeActions }       from 'react-router-redux';
+import { push }               from 'react-router-redux';
 import { httpGet, httpPost }  from '../utils';
 import CurrentBoardActions    from './current_board';
 
@@ -36,7 +36,7 @@ const Actions = {
           board: data
         });
 
-        dispatch(routeActions.push(`/boards/${data.id}`));
+        dispatch(push(`/boards/${data.id}`));
       })
       .catch((error) => {
         error.response.json()

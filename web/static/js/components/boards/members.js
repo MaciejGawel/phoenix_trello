@@ -1,8 +1,9 @@
-import React, {PropTypes} from 'react';
-import ReactGravatar      from 'react-gravatar';
-import classnames         from 'classnames';
-import PageClick          from 'react-page-click';
-import Actions            from '../../actions/current_board';
+import React, {PropTypes}       from 'react';
+import ReactGravatar            from 'react-gravatar';
+import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
+import classnames               from 'classnames';
+import PageClick                from 'react-page-click';
+import Actions                  from '../../actions/current_board';
 
 export default class BoardMembers extends React.Component {
   _renderUsers() {
@@ -86,12 +87,23 @@ export default class BoardMembers extends React.Component {
     dispatch(Actions.addNewMember(channel, email.value));
   }
 
-  rendder() {
-    return (
-      <ul className="board-users">
-        {::this._renderUsers()}
-        {::this._renderAddNewUser()}
-      </ul>
-    )
-  }
+  render() {
+      return (
+        <ul className="board-users">
+          <ReactCSSTransitionGroup
+            transitionName="avatar"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}>
+              {::this._renderUsers()}
+              {::this._renderAddNewUser()}
+          </ReactCSSTransitionGroup>
+        </ul>
+      );
+    }
 }
+
+
+BoardMembers.propTypes = {
+};
