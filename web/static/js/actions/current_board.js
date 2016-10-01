@@ -10,7 +10,7 @@ const Actions = {
     };
   },
 
-  connectToChannel: (socket, boardID) => {
+  connectToChannel: (socket, boardId) => {
     return dispatch => {
       const channel = socket.channel(`boards:${boardId}`);
 
