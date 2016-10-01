@@ -25,7 +25,7 @@ export default function configRoutes(store) {
 
   return (
     <Route component={MainLayout}>
-      <Route path="/sign_ip" component={RegistrationsNew} />
+      <Route path="/sign_up" component={RegistrationsNew} />
       <Route path="/sign_in" component={SessionsNew} />
 
       <Route path="/" component={AuthenticatedContainer} onEnter={_ensureAuthenticated}>

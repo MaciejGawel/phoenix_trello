@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
-import PageClick            from 'react-page-click';
 import Actions              from '../../actions/boards';
+import PageClick            from 'react-page-click';
 import {renderErrorsFor}    from '../../utils';
 
 export default class BoardForm extends React.Component {
@@ -15,7 +15,7 @@ export default class BoardForm extends React.Component {
     const { name } = this.refs;
 
     const data = {
-      name: name.value
+      name: name.value,
     };
 
     dispatch(Actions.create(data));
@@ -36,7 +36,7 @@ export default class BoardForm extends React.Component {
           <div className="inner">
             <h4>New board</h4>
             <form id="new_board_form" onSubmit={::this._handleSubmit}>
-              <input ref="name" id="board_name" type="text" placeholder="Board name" required="true" />
+              <input ref="name" id="board_name" type="text" placeholder="Board name" required="true"/>
               {renderErrorsFor(errors, 'name')}
               <button type="submit">Create board</button> or <a href="#" onClick={::this._handleCancelClick}>cancel</a>
             </form>

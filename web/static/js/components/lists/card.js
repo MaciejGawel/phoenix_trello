@@ -4,6 +4,21 @@ import CardForm           from '../../components/cards/form';
 import Card               from '../../components/cards/card';
 
 export default class ListCard extends React.Component {
+  _renderCards() {
+    const { cards, dispatch, boardId } = this.props;
+
+    return cards.map((card) => {
+      return (
+        <Card
+          key={card.id}
+          dispatch={dispatch}
+          boardId={boardId}
+          {...card}
+          onDrop={::this._handleDropCard} />
+      );
+    });
+  }
+
   _renderForm() {
     const { isAddingNewCard } = this.props;
     if (!isAddingNewCard) return false;
@@ -47,7 +62,7 @@ export default class ListCard extends React.Component {
   render() {
     const { id, connectDragSource, connectDropTarget, connectCardDropTarget, isDragging } = this.props;
 
-    cosnt styles = {
+    const styles = {
       display: isDragging ? 'none' : 'block'
     };
 

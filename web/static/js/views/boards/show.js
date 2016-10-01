@@ -1,10 +1,16 @@
 import React, {PropTypes}   from 'react';
 import { connect }          from 'react-redux';
+import {DragDropContext}    from 'react-dnd';
+import HTML5Backend         from 'react-dnd-html5-backend';
 
 import Actions              from '../../actions/current_board';
 import Constants            from '../../constants';
 import { setDocumentTitle } from '../../utils';
-import BoardMembers         from '../../components/boards/members';
+import ListForm             from '../../components/lists/form';
+import ListCard             from '../../components/lists/card';
+import BoardMembers           from '../../components/boards/members';
+
+@DragDropContext(HTML5Backend)
 
 class BoardsShowView extends React.Component {
   componentDidMount() {
@@ -15,6 +21,19 @@ class BoardsShowView extends React.Component {
     }
 
     this.props.dispatch(Actions.connectToChannel(socket, this.props.params.id));
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    const { socket } = this.props;
+    const { currentBoard } = nextProps;
+
+    if (currentBoard.name !== undefined) setDocumentTitle(currentBoard.name);
+
+    if (socket) {
+      return false;
+    }
+
+    this.props.dispatch(Actions.connectToChannel(nextProps.socket, this.props.params.id));
   }
 
   componentWillUnmount() {
@@ -49,6 +68,7 @@ class BoardsShowView extends React.Component {
           boardId={id}
           dispatch={this.props.dispatch}
           channel={channel}
+          isEditing={editingListId === list.id}
           isAddingNewCard={addingNewCardInListId === list.id}
           {...list} />
       );

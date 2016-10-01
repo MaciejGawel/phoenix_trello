@@ -27,7 +27,7 @@ class RegistrationsNew extends React.Component {
   }
 
   render() {
-    const { errors } = this.propsl
+    const { errors } = this.props;
 
     return (
       <div className="view-container registrations new">

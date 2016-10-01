@@ -34,7 +34,6 @@ defmodule PhoenixTrello.UserSocket do
       {:error, _reason} ->
         :error
     end
-    {:ok, socket}
   end
 
   def connect(_params, _socket), do: :error

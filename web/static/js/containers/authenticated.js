@@ -6,17 +6,17 @@ import Header           from '../layouts/header';
 class AuthenticatedContainer extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch(Actions.fetchBoards());
+    dispatch(BoardsActions.fetchBoards());
   }
 
   render() {
-    const { currentUser, dispatch } = this.props;
+    const { currentUser, dispatch, boards, socket, currentBoard } = this.props;
 
     if (!currentUser) return false;
 
     return (
       <div className="application-container">
-        <Header currentUser={currentUser} dispatch={dispatch} />
+        <Header />
 
         <div className="main-container">
           {this.props.children}
@@ -27,7 +27,11 @@ class AuthenticatedContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  currentIser: state.session.currentUser,
+  currentUser: state.session.currentUser,
+  socket: state.session.socket,
+  channel: state.session.channel,
+  boards: state.boards,
+  currentBoard: state.currentBoard
 });
 
 export default connect(mapStateToProps)(AuthenticatedContainer);

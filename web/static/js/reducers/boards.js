@@ -5,6 +5,7 @@ const initialState = {
   invitedBoards: [],
   showForm: false,
   formErrors: null,
+  ownedFetched: false,
   fetching: true
 };
 

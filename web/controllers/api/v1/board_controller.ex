@@ -1,7 +1,7 @@
 defmodule PhoenixTrello.BoardController do
   use PhoenixTrello.Web, :controller
 
-  plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixTrello.SessionsController
+  plug Guardian.Plug.EnsureAuthenticated, handler: PhoenixTrello.SessionController
   plug :scrub_params, "board" when action in [:create]
 
   alias PhoenixTrello.{Repo, Board, UserBoard}

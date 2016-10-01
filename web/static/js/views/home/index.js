@@ -4,15 +4,16 @@ import classnames           from 'classnames';
 
 import { setDocumentTitle } from '../../utils';
 import Actions              from '../../actions/boards';
-// import BoardCard            from '../../components/boards/card';
+import BoardCard            from '../../components/boards/card';
 import BoardForm            from '../../components/boards/form';
 
 class HomeIndexView extends React.Component {
   componentDidMount() {
     setDocumentTitle('Boards');
+  }
 
-    const { dispatch } = this.props;
-    dispatch(Actions.fetchBoards());
+  componentWillUnmount() {
+    this.props.dispatch(Actions.reset());
   }
 
   _renderOwnedBoards() {
@@ -48,7 +49,7 @@ class HomeIndexView extends React.Component {
 
   _renderBoards(boards) {
     return boards.map((boards) => {
-      // return <BoardCard key={board.id} dispatch={this.props.dispatch} {...board} />;
+      return <BoardCard key={board.id} dispatch={this.props.dispatch} {...board} />;
     });
   }
 
@@ -58,9 +59,29 @@ class HomeIndexView extends React.Component {
     if (!showForm) return this._renderAddButton();
 
     return (
-      <BoardForm dispatch={dispatch} errors={formErrors} onCancelClick={::this._handleCancelClick} />
+      <BoardForm
+        dispatch={dispatch}
+        errors={formErrors}
+        onCancelClick={::this._handleCancelClick}/>
     );
   }
+
+  _renderOtherBoards() {
+   const { invitedBoards } = this.props;
+
+   if (invitedBoards.length === 0) return false;
+
+   return (
+     <section>
+       <header className="view-header">
+         <h3><i className="fa fa-users" /> Other boards</h3>
+       </header>
+       <div className="boards-wrapper">
+         {::this._renderBoards(invitedBoards)}
+       </div>
+     </section>
+   );
+ }
 
   _renderAddButton() {
     return (
@@ -86,6 +107,7 @@ class HomeIndexView extends React.Component {
     return (
       <div className="view-container boards index">
         {::this._renderOwnedBoards()}
+        {::this._renderOtherBoards()}
       </div>
     );
   }

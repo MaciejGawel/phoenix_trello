@@ -48,6 +48,14 @@ const Actions = {
         });
       });
     };
+  },
+
+  reset: () => {
+    return dispatch => {
+      dispatch({
+        type: Constants.BOARDS_RESET,
+      });
+    };
   }
 };
 
